@@ -24,7 +24,8 @@ export const signup = async (req, res, next) => {
     // recebe os valores das variáveis através do body da requisição
     const {name, email, password} = req.body;
     // se os inputs estiverem zoados, retorna mensagem de erro
-    if (!name && name.trim() === "" &&
+    if (
+        !name && name.trim() === "" &&
         !email && email.trim() === "" &&
         !password && password.trim() === ""
     ) {
@@ -44,8 +45,42 @@ export const signup = async (req, res, next) => {
     }
     if (!user) {
         // res 500 caso dê algum erro interno no servidor
-        return res.status(500).json({ message: "Erro interno no servidor" });
+        return res.status(500).json({ message: "Erro interno no servidor ao cadastrar novo usuário" });
     }
     // depois de tudo, responde com res 201 de criado com sucesso e retorna o id do novo usuário
     return res.status(201).json({ id: user._id });
 };
+
+// função para alterar/atualizar os dados de um certo usuário
+export const updateUser = async (req, res, next) => {
+    //recebe o id via parâmetros (url) do request
+    const id = req.params.id;
+    // recebe demais informações a ser atualizada pelo body do request
+    const { name, email, password } = req.body;
+    // se as novas informações forem improcessáveis pelo servidor, sobe um alerta 422
+    if (
+        !name && name.trim() === "" &&
+        !email && email.trim() === "" &&
+        !password && password.trim() === ""
+    ) {
+        return res.status(422).json({ message: "Inputs não processáveis pelo servidor" });
+    }
+    //a nova senha é criptografada
+    const hashedPassword = bcrypt.hashSync(password);
+    // recebe o usuário através de uma promise e atualiza os dados, utilizando as novas informações
+    let user;
+    try {
+        user = await User.findByIdAndUpdate(id, {
+            name,
+            email,
+            password: hashedPassword,
+        });
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!user) {
+        return res.status(500).json({ message: "Erro interno no servidor ao atualizar usuário" });
+    }
+    // qualquer erro ocorrido cai nos catchs anteriores, e se der tudo certo, manda mensagem no console
+    res.status(200).json({ message: "Usuário atualizado com sucesso" });
+  };
