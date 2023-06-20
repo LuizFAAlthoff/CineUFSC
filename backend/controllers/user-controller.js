@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from 'bcryptjs'
 
 // função assíncrona que vai ser enviada quando o frontend (router do backend) solicitar todos os usuários do sistema
 // retorna todos os usuários, e se falhar envia mensagem no log do console
@@ -19,7 +20,7 @@ export const getAllUsers = async (req, res, next) => {
   };
 
 // função assíncrona pra fazer o cadastro
-export const singup = async (req, res, next) => {
+export const signup = async (req, res, next) => {
     // recebe os valores das variáveis através do body da requisição
     const {name, email, password} = req.body;
     // se os inputs estiverem zoados, retorna mensagem de erro
