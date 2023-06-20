@@ -67,3 +67,35 @@ export const deleteUser = async (req, res, next) => {
     }
     return res.status(200).json({ message: "Sucesso ao excluir usuário" });
 };
+
+// função para fazer login, que retorna o id do usuário atual caso tenha sucesso
+export const login = async (req, res, next) => {
+    // recebe os inputs de email e senha no body da requisição
+    const {email, password} = req.body;
+    if (!email && email.trim() === "" &&
+        !password && password.trim() === "") {
+        return res.status(422).json({message: "Inputs inválidos"});
+    }
+    // variável existingUser serve para 'segurar' o usuário logado
+    let existingUser;
+    try {
+        // espera a promise, recebendo o usuário que bate com o email informado
+        existingUser = await User.findOne({email});
+    } catch (err) {
+        return console.log(err);
+    }
+  
+    if (!existingUser) {
+        // caso não exista o usuário com o mesmo email, sobe um status 404 de objeto não encontrado
+        return res.status(404).json({message: "Não foi possível pegar o usuário com esse ID"});
+    }
+    // caso tenha encontrado, continua
+    // criptografa a senha inserida e compara com a senha do usuário
+    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
+  
+    if (!isPasswordCorrect) {
+      return res.status(400).json({message: "Senha incorreta"});
+    }
+    // caso tudo dê certo, retorna mensagem no console e o id do usuário que ficará logado
+    return res.status(200).json({message: "Login feito com sucesso", id: existingUser._id});
+  };
