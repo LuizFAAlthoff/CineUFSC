@@ -99,3 +99,22 @@ export const login = async (req, res, next) => {
     // caso tudo dê certo, retorna mensagem no console e o id do usuário que ficará logado
     return res.status(200).json({message: "Login feito com sucesso", id: existingUser._id});
   };
+
+// função que pega o objeto usuário pelo id fornecido
+export const getUserById = async (req, res, next) => {
+    // recebe o id pelos parâmetros do request (url)
+    const id = req.params.id;
+    let user;
+    try {
+        // recebe o objeto user pela promise
+        user = await User.findById(id);
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!user) {
+        return res.status(500).json({message: "Erro interno no servidor ao enviar usuário"});
+    }
+    // caso dê tudo certo, retorna o objeto
+    return res.status(200).json({user});
+  };
+  
