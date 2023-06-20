@@ -50,3 +50,20 @@ export const signup = async (req, res, next) => {
     // depois de tudo, responde com res 201 de criado com sucesso e retorna o id do novo usuário
     return res.status(201).json({ id: user._id });
 };
+
+//função pra deletar usuário
+export const deleteUser = async (req, res, next) => {
+    // recebe o id do usuário a ser excluído pelos parametros da requisição (url)
+    const id = req.params.id;
+    let user;
+    try {
+        // espera a promise encontrar o objeto user pelo id
+        user = await User.findByIdAndRemove(id);
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!user) {
+        return res.status(500).json({message: "Erro interno no servidor ao excluir usuário"});
+    }
+    return res.status(200).json({ message: "Sucesso ao excluir usuário" });
+};
