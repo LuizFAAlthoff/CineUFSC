@@ -14,7 +14,7 @@ export const getAllUsers = async (req, res, next) => {
     }
     if (!users) {
         // se não houver nada na variável users, informa erro
-        return res.status(500).json({ message: "Erro ao enviar todos os usuários" });
+        return res.status(500).json({message: "Erro ao enviar todos os usuários"});
     }
     return res.status(200).json({users});
   };
@@ -28,7 +28,7 @@ export const signup = async (req, res, next) => {
         !email && email.trim() === "" &&
         !password && password.trim() === ""
     ) {
-        return res.status(422).json({ message: "Inputs inválidos" });
+        return res.status(422).json({message: "Inputs inválidos"});
     }
     // se tiver tudo ok, usa a biblioteca bcrypt para criptografar a senha
     const hashedPassword = bcrypt.hashSync(password);
