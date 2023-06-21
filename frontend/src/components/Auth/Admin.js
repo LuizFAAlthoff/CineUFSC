@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendAdminAuthRequest } from "../../api-helpers/api-helpers";
 import { adminActions } from "../../store";
-import AuthForm from "CineUFSC/frontend/components/Auth/AuthForm.js";
+import AuthForm from "./Authform";
 
 const Admin = () => {
   const navigate = useNavigate();
