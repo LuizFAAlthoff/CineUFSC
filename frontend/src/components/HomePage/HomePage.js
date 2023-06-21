@@ -1,8 +1,17 @@
 import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState  } from 'react'
 import MovieItem from '../Movies/MovieItem';
+import { Link } from 'react-router-dom';
+import { getAllMovies } from '../../api-helpers/api-helpers';
 
 const HomePage = () => {
+  const [movies, setMovies] = useState();
+    useEffect(() => {
+        getAllMovies()
+        .then((data) => setMovies(data))
+        .catch((err) => console.log(err));
+    }, []);
+  console.log(movies);
   return <Box width={'100%'} height="100%" marginTop={2} martin="auto">
         <Box margin={"auto"} width="20%" height={"40vh%"} padding={2}>
             <img 
@@ -30,7 +39,7 @@ const HomePage = () => {
             ))}
         </Box>
         <Box display="flex" padding={5} margin="auto">
-            <Button variant="outlined"  sx={{ margin:'auto', color:"#2b2d42"}}  > 
+            <Button LinkComponent={Link} to="/movies" variant="outlined"  sx={{ margin:'auto', color:"#2b2d42"}}  > 
                 {"Veja todos os filmes"}
             </Button>
         </Box>
