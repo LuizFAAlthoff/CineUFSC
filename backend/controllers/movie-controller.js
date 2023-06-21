@@ -55,3 +55,30 @@ export const addMovie = async (req, res, next) => {
     }
     return res.status(201).json({ movie });
 };
+
+export const getAllMovies = async (req, res, next) => {
+    let movies;
+    try {
+        movies = await Movie.find();
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!movies) {
+        return res.status(500).json({ message: "Falha na requisição" });
+    }
+    return res.status(200).json({ movies });
+};
+
+export const getMovieById = async (req, res, next) => {
+    const id = req.params.id;
+    let movie;
+    try {
+        movie = await Movie.findById(id);
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!movie) {
+        return res.status(404).json({ message: "ID de filme inválido" });
+    }
+    return res.status(200).json({ movie });
+};
