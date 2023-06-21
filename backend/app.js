@@ -6,9 +6,13 @@ import userRouter from "./routes/user-routes";
 dotenv.config()
 // isso serve para que, ao rodar o app, ele se comporte como o express
 const app = express();
-
+const corsOptions = {
+  origin:'http://localhost:3000',
+  credentials: true,
+  optionSuccessStatus: 200
+}
 // middlewares (conexão)
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/user", userRouter);
 
