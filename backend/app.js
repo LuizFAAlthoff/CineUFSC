@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user-routes";
+import movieRouter from "./routes/movie-routes";
 
 dotenv.config()
 // isso serve para que, ao rodar o app, ele se comporte como o express
@@ -15,6 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/user", userRouter);
+app.use("/movie", movieRouter)
 
 // conexão com banco de dados mongodb através da biblioteca mongoose, e utiliza a chave secreta que está no .env
 mongoose
