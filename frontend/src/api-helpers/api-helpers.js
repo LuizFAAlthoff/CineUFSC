@@ -1,5 +1,19 @@
 import axios from "axios";
 
+export const getAllMovies = async() => {
+  const res = axios
+  .get("http://localhost:5000/movie")
+  .catch((err) => console.log(err));
+
+  if(res.status!== 200){
+    return console.log("Sem Dados");
+  }
+
+  const data = await res.data;
+  return data;
+
+};
+
 export const sendUserAuthRequest = async (data, signup) => {
     const res = await axios
       .post(`/user/${signup ? "signup" : "login"}`, {
