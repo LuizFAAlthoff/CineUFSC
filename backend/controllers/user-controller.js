@@ -51,6 +51,34 @@ export const signup = async (req, res, next) => {
     return res.status(201).json({ id: user._id });
 };
 
+export const updateUser = async (req, res, next) => {
+    const id = req.params.id;
+    const {name, email, password} = req.body;
+    if (
+        !name && name.trim() === "" &&
+        !email && email.trim() === "" &&
+        !password && password.trim() === ""
+    ) {
+         return res.status(422).json({ message: "Invalid Inputs" });
+    }
+    const hashedPassword = bcrypt.hashSync(password);
+  
+    let user;
+    try {
+        user = await User.findByIdAndUpdate(id, {
+            name,
+            email,
+            password: hashedPassword,
+        });
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!user) {
+        return res.status(500).json({message: "Erro ao atualizar usuário"});
+    }
+    res.status(200).json({message: "Atualizado com sucesso"});
+};
+
 //função pra deletar usuário
 export const deleteUser = async (req, res, next) => {
     // recebe o id do usuário a ser excluído pelos parametros da requisição (url)
