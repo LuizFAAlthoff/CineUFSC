@@ -3,14 +3,17 @@ import React from 'react'
 
 const MovieItem = () => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ 
+        margin:5,
+        maxWidth: 250, 
+        height:320,
+        borderRadius:5,
+        ":hover":{
+            boxShadow: "10px 10px 20px #ccc"
+        }
+        }}>
     <CardActionArea>
-      <CardMedia
-        component="img"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-        alt="green iguana"
-      />
+      <img height={"50%"} width="100%" src="" alt=""/>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           Lizard
@@ -22,7 +25,7 @@ const MovieItem = () => {
       </CardContent>
     </CardActionArea>
     <CardActions>
-      <Button size="small" color="primary">
+      <Button sx={{ margin:"auto" }} size="small" color="primary">
         Share
       </Button>
     </CardActions>

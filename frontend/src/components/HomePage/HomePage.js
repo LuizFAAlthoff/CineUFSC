@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import MovieItem from '../Movies/MovieItem';
 
@@ -17,12 +17,24 @@ const HomePage = () => {
                 Últimos Lançamentos
             </Typography>
         </Box>
-        <Box display="flex" width="80%" justifyContent={"center"} flexWrap="wrap">
+        <Box 
+            margin={"auto"} 
+            display="flex" 
+            width="80%" 
+            justifyContent={"center"} 
+            flexWrap="wrap"
+            alignItems="center"
+        >
             {[1,2,3,4].map((item) => (
                 <MovieItem key={item} />
             ))}
         </Box>
-    </Box>;
-}
+        <Box display="flex" padding={5} margin="auto">
+            <Button variant="outlined"  sx={{ margin:'auto', color:"#2b2d42"}}  > 
+                {"Veja todos os filmes"}
+            </Button>
+        </Box>
+    </Box>
+};
 
 export default HomePage
