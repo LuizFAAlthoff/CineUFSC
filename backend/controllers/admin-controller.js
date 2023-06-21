@@ -49,4 +49,42 @@ export const adminLogin = async (req, res, next) => {
         password,
         existingAdmin.password
     );
-}
+    if (!isPasswordCorrect) {
+        return res.status(400).json({ message: "Senha incorreta" });
+    }
+    
+    const token = jwt.sign({ id: existingAdmin._id }, process.env.SECRET_KEY, {
+        expiresIn: "7d",
+    });
+    
+    return res
+        .status(200)
+        .json({ message: "Autenticação bem sucedida", token, id: existingAdmin._id });
+};
+
+export const getAdmins = async (req, res, next) => {
+    let admins;
+    try {
+        admins = await Admin.find();
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!admins) {
+        return res.status(500).json({ message: "Erro interno do servidor" });
+    }
+    return res.status(200).json({ admins });
+};
+
+export const getAdminById = async (req, res, next) => {
+    const id = req.params.id;
+    let admin;
+    try {
+        admin = await Admin.findById(id).populate("addedMovies");
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!admin) {
+        return console.log("Administrador não encontrado");
+    }
+    return res.status(200).json({ admin });
+};
