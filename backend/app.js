@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user-routes";
 import movieRouter from "./routes/movie-routes";
 import cors from "cors";
-
+let teste = "oi"
 dotenv.config()
 // isso serve para que, ao rodar o app, ele se comporte como o express
 const app = express();
