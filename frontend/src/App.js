@@ -1,10 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import Header from './components/Header/Header';
-import HomePage from './components/HomePage/HomePage';
-import Movies from './components/Movies/Movies';
-import Admin from './components/Admin/Admin';
-import Auth from './components/Auth/Auth';
+import { Route, Routes } from "react-router-dom";
+import Admin from "./components/Auth/Admin";
+import Auth from "./components/Auth/Auth";
+import Header from "./components/Header";
+import HomePage from "./components/HomePage";
+import Movies from "./components/Movies/Movies";
 
 function App() {
   return (

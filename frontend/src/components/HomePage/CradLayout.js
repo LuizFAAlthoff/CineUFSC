@@ -8,11 +8,10 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
+const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
   return (
     <Card
       sx={{
-        margin: 2,
         width: 250,
         height: 320,
         borderRadius: 5,
@@ -21,7 +20,13 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
         },
       }}
     >
-      <img height={"50%"} width="100%" src={posterUrl} alt={title} />
+      <img
+        component="img"
+        height="50%"
+        width="100%"
+        src={posterUrl}
+        alt={title}
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -32,24 +37,24 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
       </CardContent>
       <CardActions>
         <Button
-          variant="contained"
-          fullWidth
           LinkComponent={Link}
           to={`/booking/${id}`}
+          fullWidth
+          variant="contained"
           sx={{
             margin: "auto",
             bgcolor: "#2b2d42",
             ":hover": {
               bgcolor: "#121217",
             },
+            borderRadius: 5,
           }}
-          size="small"
         >
-          Book
+          Book Now
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default MovieItem;
+export default CradLayout;

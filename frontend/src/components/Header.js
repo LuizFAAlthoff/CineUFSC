@@ -2,55 +2,44 @@ import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Autocomplete,
-  Box,
+  IconButton,
   Tab,
   Tabs,
   TextField,
   Toolbar,
 } from "@mui/material";
-import MovieCreationIcon from "@mui/icons-material/MovieCreation";
-import { getAllMovies } from "../../api-helpers/api-helpers";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import MovieIcon from "@mui/icons-material/Movie";
+import { Box } from "@mui/system";
+import { getAllMovies } from "../api-helpers/api-helpers";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Header = () => {
   const [value, setValue] = useState();
-  const [data, setData] = useState([]);
+  const [movies, setMovies] = useState([]);
   useEffect(() => {
     getAllMovies()
-      .then((data) => setData(data))
+      .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
   }, []);
-  console.log(data);
   return (
     <AppBar position="sticky" sx={{ bgcolor: "#2b2d42" }}>
       <Toolbar>
-        <Box width="20%">
-          <Link to="/" style={{ color: "white" }}>
-            <MovieCreationIcon />
-          </Link>
+        <Box width={"20%"}>
+          <IconButton LinkComponent={Link} to="/">
+            <MovieIcon />
+          </IconButton>
         </Box>
-        <Box width="50%" marginRight={"auto"} marginLeft="auto">
+        <Box width={"30%"} margin="auto">
           <Autocomplete
-            sx={{ borderRadius: 10, width: "40%", margin: "auto" }}
             freeSolo
-            id="free-solo-2-demo"
-            disableClearable
-            options={data.map((option) => option.title)}
+            options={movies && movies.map((option) => option.title)}
             renderInput={(params) => (
               <TextField
-                sx={{
-                  borderRadius: 2,
-                  input: { color: "white" },
-                  bgcolor: "#2b2d42",
-                  padding: "6px",
-                }}
+                sx={{ input: { color: "white" } }}
                 variant="standard"
-                placeholder="Pesquise através de multiplos filmes"
                 {...params}
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
+                placeholder="Pesquise Através de Multiplos Filmes"
               />
             )}
           />

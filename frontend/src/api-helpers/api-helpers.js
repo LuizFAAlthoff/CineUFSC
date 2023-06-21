@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const getAllMovies = async () => {
   const res = await axios.get("/movie").catch((err) => console.log(err));
 
@@ -10,3 +9,4 @@ export const getAllMovies = async () => {
   const data = await res.data;
   return data;
 };
+
