@@ -32,4 +32,4 @@ const MovieItem = ({title, releaseDate, posterURL, id}) => {
   );
 };
 
-export default MovieItem;
+export default MovieItem
