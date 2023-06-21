@@ -39,7 +39,7 @@ const Header = () => {
                 sx={{ input: { color: "white" } }}
                 variant="standard"
                 {...params}
-                placeholder="Pesquise Através de Multiplos Filmes"
+                placeholder="Pesquise através de multiplos filmes:"
               />
             )}
           />
