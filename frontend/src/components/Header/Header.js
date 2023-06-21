@@ -34,7 +34,7 @@ const Header = () => {
                     renderInput={(params) => (
                       <TextField sx={{ input: {color:"white"}}} variant="standard" 
                       {...params} 
-                      placeholder="Search Acrros Multiple Movies"/>
+                      placeholder="Pesquise atráves de múltiplos filmes"/>
                     )}
                   />
                 </Box> 
