@@ -34,7 +34,7 @@ export const addAdmin = async (req, res, next) => {
 export const adminLogin = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email && email.trim() === "" && !password && password.trim() === "") {
-        return res.status(422).json({ message: "Invalid Inputs" });
+        return res.status(422).json({ message: "Inputs Inválidos" });
     }
     let existingAdmin;
     try {
@@ -43,7 +43,7 @@ export const adminLogin = async (req, res, next) => {
         return console.log(err);
     }
     if (!existingAdmin) {
-        return res.status(400).json({ message: "Admin not found" });
+        return res.status(400).json({ message: "Administrador não encontrado" });
     }
     const isPasswordCorrect = bcrypt.compareSync(
         password,
