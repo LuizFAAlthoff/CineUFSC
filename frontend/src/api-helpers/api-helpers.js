@@ -45,3 +45,15 @@ export const sendAdminAuthRequest = async (data) => {
   const resData = await res.data;
   return resData;
 };
+
+export const getMoviesDetails = async(id) => {
+  
+  const res = await axios.get(`movie/${id}`).catch(err=> console.log(err));
+
+  if (res.status !== 200) {
+    return console.log("Unexpectyed Error");
+  }
+
+  const resData = await res.data;
+  return resData;
+}

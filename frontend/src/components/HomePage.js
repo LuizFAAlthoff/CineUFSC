@@ -15,7 +15,7 @@ const HomePage = () => {
     <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
       <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
       <img
-          src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2023/05/boogey-1-scaled.jpg"
+          src="https://www.joblo.com/wp-content/uploads/2023/05/The-Boogeyman-poster-3.jpg"
           alt="The Boogeyman"
           width="100%"
           height="100%"

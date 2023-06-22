@@ -45,7 +45,7 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
           }}
           size="small"
         >
-          Book
+          Agendar
         </Button>
       </CardActions>
     </Card>
