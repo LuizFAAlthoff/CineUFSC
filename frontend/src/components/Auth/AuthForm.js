@@ -21,7 +21,7 @@ const AuthForm = ({onSubmit, isAdmin}) => {
   /* Previne coportamento padrão do browser de fazer o refresh durante um submit */
   const handleSubmit = (e)=>{
     e.preventDefault();
-    onSubmit(inputs); /* envia os dados para o componente pai */
+    onSubmit({inputs, signup: isAdmin?false:isSignup}); /* envia os dados para o componente pai / valida se é um login ou signup*/
 
 
   };
@@ -78,19 +78,23 @@ const AuthForm = ({onSubmit, isAdmin}) => {
             name="password" 
           />
 
-          <Button 
-            variant="conatined" 
-            sx={{ mt:2, borderRadius:10, bgcolor:"#2b2d42" }} 
-            type='submit' fullWidth> 
-            {isSignup? "Signup":"Login"} 
-          </Button>
-
-         {!isAdmin && ( <Button 
-            onClick={()=>setIsSignup(!isSignup)} 
-            sx={{ mt:2, borderRadius:10 }} 
-            fullWidth> 
-            Swtich to {isSignup?"Login ":"Signup"} 
-          </Button>)}
+            <Button
+                sx={{ mt: 2, borderRadius: 10, bgcolor: "#2b2d42" }}
+                type="submit"
+                fullWidth
+                variant="contained"
+            >
+            {isSignup ? "Signup" : "Login"}
+            </Button>
+                {!isAdmin && (
+                <Button
+                onClick={() => setIsSignup(!isSignup)}
+                sx={{ mt: 2, borderRadius: 10 }}
+                fullWidth
+                >
+                Switch To {isSignup ? "Login" : "Signup"}
+            </Button>
+            )}
         </Box>
     </form>
   </Dialog>;
