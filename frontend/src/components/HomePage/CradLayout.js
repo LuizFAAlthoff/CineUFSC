@@ -50,7 +50,7 @@ const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
             borderRadius: 5,
           }}
         >
-          Book Now
+          Agendar
         </Button>
       </CardActions>
     </Card>

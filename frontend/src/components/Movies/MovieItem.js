@@ -31,7 +31,7 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
+      <Button
           variant="contained"
           fullWidth
           LinkComponent={Link}
