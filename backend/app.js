@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user-routes";
 import movieRouter from "./routes/movie-routes";
+import adminRouter from "./routes/admin-routes";
 import cors from "cors";
 let teste = "oi"
 dotenv.config()
@@ -17,7 +18,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/user", userRouter);
-app.use("/movie", movieRouter)
+app.use("/movie", movieRouter);
+
 
 // conexão com banco de dados mongodb através da biblioteca mongoose, e utiliza a chave secreta que está no .env
 mongoose
