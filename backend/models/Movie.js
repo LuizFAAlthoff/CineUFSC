@@ -9,7 +9,7 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    actors: [{ type: String, required: true }],
+    actors: [{type: String, required: true}],
     releaseDate: {
         type: Date,
         required: true,
@@ -21,7 +21,7 @@ const movieSchema = new mongoose.Schema({
     featured: {
         type: Boolean,
     },
-    bookings: [{ type: mongoose.Types.ObjectId, ref: "Booking" }],
+    bookings: [{type: mongoose.Types.ObjectId, ref: "Booking"}],
     admin: {
         type: mongoose.Types.ObjectId,
         ref: "Admin",

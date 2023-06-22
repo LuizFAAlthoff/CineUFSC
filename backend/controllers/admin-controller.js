@@ -45,21 +45,16 @@ export const adminLogin = async (req, res, next) => {
     if (!existingAdmin) {
         return res.status(400).json({message: "Administrador não encontrado"});
     }
-    const isPasswordCorrect = bcrypt.compareSync(
-        password,
-        existingAdmin.password
-    );
+    const isPasswordCorrect = bcrypt.compareSync(password, existingAdmin.password);
     if (!isPasswordCorrect) {
-        return res.status(400).json({ message: "Senha incorreta" });
+        return res.status(400).json({message: "Senha incorreta"});
     }
     
-    const token = jwt.sign({ id: existingAdmin._id }, process.env.SECRET_KEY, {
-        expiresIn: "7d",
-    });
+    const token = jwt.sign({ id: existingAdmin._id }, process.env.SECRET_KEY, {expiresIn: "7d"});
     
     return res
         .status(200)
-        .json({ message: "Autenticação bem sucedida", token, id: existingAdmin._id });
+        .json({message: "Autenticação bem sucedida", token, id: existingAdmin._id});
 };
 
 export const getAdmins = async (req, res, next) => {
@@ -70,9 +65,9 @@ export const getAdmins = async (req, res, next) => {
         return console.log(err);
     }
     if (!admins) {
-        return res.status(500).json({ message: "Erro interno do servidor" });
+        return res.status(500).json({message: "Erro interno do servidor"});
     }
-    return res.status(200).json({ admins });
+    return res.status(200).json({admins});
 };
 
 export const getAdminById = async (req, res, next) => {
@@ -86,5 +81,5 @@ export const getAdminById = async (req, res, next) => {
     if (!admin) {
         return console.log("Administrador não encontrado");
     }
-    return res.status(200).json({ admin });
+    return res.status(200).json({admin});
 };

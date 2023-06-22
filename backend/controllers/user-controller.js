@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from 'bcryptjs'
+import Bookings from "../models/Bookings";
 
 // função assíncrona que vai ser enviada quando o frontend (router do backend) solicitar todos os usuários do sistema
 // retorna todos os usuários, e se falhar envia mensagem no log do console
@@ -145,4 +146,20 @@ export const getUserById = async (req, res, next) => {
     // caso dê tudo certo, retorna o objeto
     return res.status(200).json({user});
   };
-  
+
+  // função que pega todas as reservas de um usuário	
+export const getBookingsOfUser = async (req, res, next) => {
+    // recebe o id do usuário pelos parâmetros do request (url)
+    const id = req.params.id;
+    let bookings;
+    try {
+        // recebe o objeto bookings pela promise e popula os atributos movie e user
+        bookings = await Bookings.find({user: id}).populate("movie").populate("user");
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!bookings) {
+        return res.status(500).json({message: "Erro interno ao pegar reservas do usuário"});
+    }
+    return res.status(200).json({bookings});
+  };
