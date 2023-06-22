@@ -4,6 +4,7 @@ import Bookings from "../models/Bookings";
 
 // função assíncrona que vai ser enviada quando o frontend (router do backend) solicitar todos os usuários do sistema
 // retorna todos os usuários, e se falhar envia mensagem no log do console
+// a função precisa ser assíncrona pois o retorno da promise do mongodb demora
 export const getAllUsers = async (req, res, next) => {
     let users;
     try {
@@ -51,21 +52,23 @@ export const signup = async (req, res, next) => {
     // depois de tudo, responde com res 201 de criado com sucesso e retorna o id do novo usuário
     return res.status(201).json({ id: user._id });
 };
-
+// função assíncrona pra atualizar dados do usuário
 export const updateUser = async (req, res, next) => {
     const id = req.params.id;
+    // recebe os valores das variáveis através do body da requisição
     const {name, email, password} = req.body;
     if (
         !name && name.trim() === "" &&
         !email && email.trim() === "" &&
         !password && password.trim() === ""
     ) {
-         return res.status(422).json({ message: "Invalid Inputs" });
+        return res.status(422).json({message: "Inputs inválidos"});
     }
     const hashedPassword = bcrypt.hashSync(password);
   
     let user;
     try {
+        // espera a promise encontrar o usuário pelo id e atualizar os dados dele com os novos valores recebidos
         user = await User.findByIdAndUpdate(id, {
             name,
             email,
