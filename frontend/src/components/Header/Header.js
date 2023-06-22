@@ -13,7 +13,7 @@ import { getAllMovies } from "../../api-helpers/api-helpers";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const [data, setData] = useState([]);
   useEffect(() => {
     getAllMovies()

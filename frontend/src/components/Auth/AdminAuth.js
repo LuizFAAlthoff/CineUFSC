@@ -6,4 +6,4 @@ const AdminAuth = () => {
   )
 }
 
-export default AdminAuth;
+export default AdminAuth

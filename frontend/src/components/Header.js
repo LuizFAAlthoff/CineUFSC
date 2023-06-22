@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Header = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     getAllMovies()

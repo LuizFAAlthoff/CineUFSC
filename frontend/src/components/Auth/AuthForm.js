@@ -2,7 +2,9 @@ import { Box, Button, Dialog, FormLabel, IconButton, TextField, Typography } fro
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { useState } from 'react';
 const labelStyle = {mt:1, mb: 1};
-const AuthForm = () => {
+/* OnSubmit -> envia as informações para o componente pai*/
+/* isAdmin -> Valida se o usuário está logando com um usuário elevado */
+const AuthForm = ({onSubmit, isAdmin}) => {
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -19,7 +21,7 @@ const AuthForm = () => {
   /* Previne coportamento padrão do browser de fazer o refresh durante um submit */
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(inputs);
+    onSubmit(inputs); /* envia os dados para o componente pai */
 
 
   };
@@ -42,7 +44,7 @@ const AuthForm = () => {
             margin="auto"
             alignContent={"center"}
         >
-        {isSignup &&( 
+        {!isAdmin && isSignup &&( 
             <>
           {" "}
           <FormLabel sx={labelStyle} >Name</FormLabel>
@@ -83,12 +85,12 @@ const AuthForm = () => {
             {isSignup? "Signup":"Login"} 
           </Button>
 
-          <Button 
+         {!isAdmin && ( <Button 
             onClick={()=>setIsSignup(!isSignup)} 
             sx={{ mt:2, borderRadius:10 }} 
             fullWidth> 
             Swtich to {isSignup?"Login ":"Signup"} 
-          </Button>
+          </Button>)}
         </Box>
     </form>
   </Dialog>;

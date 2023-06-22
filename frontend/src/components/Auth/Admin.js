@@ -1,9 +1,17 @@
 import React from 'react'
+import AuthForm from './AuthForm';
 
 const Admin = () => {
-  return (
-    <div>Admin</div>
-  )
-}
+  /*Recupera dos dados preenchidos no AuthForm para esse componente */
+  const getData = (data) => {
+    console.log("Admin", data);
 
-export default Admin
+  };
+  return (
+    <div>
+      <AuthForm onSubmit={getData} isAdmin={true}/>
+    </div>
+  );
+};
+
+export default Admin;
