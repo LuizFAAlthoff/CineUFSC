@@ -48,7 +48,7 @@ const Header = () => {
                       <Tabs textColor ="inherit" indicatorColor="secondary" value={value} onChange={(e,val)=>setValue(val)} >
                         <Tab LinkComponent={Link} to="/movies " label="Filmes" />
                         <Tab LinkComponent={Link} to="/admin" label="Admin" />
-                        <Tab LinkComponent={Link} to="/admin" label="Auth" />
+                        <Tab LinkComponent={Link} to="/auth" label="Auth" />
                       </Tabs>
        </Box> 
       </Toolbar>

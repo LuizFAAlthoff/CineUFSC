@@ -21,7 +21,7 @@ const Movies = () => {
         color="white"
         textAlign={"center"}
       >
-        All Movies
+        Todos os Filmes
       </Typography>
       <Box
         width={"100%"}
