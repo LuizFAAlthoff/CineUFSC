@@ -3,7 +3,26 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { useState } from 'react';
 const labelStyle = {mt:1, mb: 1};
 const AuthForm = () => {
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [isSignup, setIsSignup] = useState(false);
+  /* Função que gerencia a mudança de estado dos inputs, armazena o valor do campo anterior e o atual */
+  const handleChange = (e) => {
+    setInputs((preVState)=>({
+        ...preVState,
+        [e.target.name] : e.target.value,
+    }));
+  };
+  /* Previne coportamento padrão do browser de fazer o refresh durante um submit */
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log(inputs);
+
+
+  };
   return <Dialog PaperProps={{style:{borderRadius:20}}} open={true}>
     <Box sx={{ml:"auto", padding:1}}>
         <IconButton>
@@ -13,7 +32,7 @@ const AuthForm = () => {
     <Typography variant='h4' textAlign={"center"}> 
         {isSignup? "Signup":"Login"}
     </Typography>
-    <form>
+    <form onSubmit={handleSubmit}>
         <Box
             padding={6}
             display={'flex'} 
@@ -27,20 +46,49 @@ const AuthForm = () => {
             <>
           {" "}
           <FormLabel sx={labelStyle} >Name</FormLabel>
-          <TextField margin="normal" varient="standard" type={"text"} name="name" 
+          <TextField 
+            value={inputs.name} 
+            onChange={handleChange} 
+            margin="normal" 
+            varient="standard" 
+            type={"text"} name="name" 
           />
           </>
         )}
 
           <FormLabel sx={labelStyle} >Email</FormLabel>
-          <TextField margin="normal" varient="standard" type={"email"} name="email" />
+          <TextField 
+                value={inputs.email} 
+                onChange={handleChange} 
+                margin="normal" 
+                varient="standard" 
+                type={"email"} 
+                name="email" 
+            />
+
           <FormLabel sx={labelStyle}>Password</FormLabel>
-          <TextField margin="normal" varient="standard" type={"password"} name="password" />
+          <TextField 
+            value={inputs.password} 
+            onChange={handleChange} 
+            margin="normal" 
+            varient="standard" 
+            type={"password"} 
+            name="password" 
+          />
 
-          <Button variant="conatined" sx={{ mt:2, borderRadius:10, bgcolor:"#2b2d42" }} type='submit' fullWidth> {isSignup? "Signup":"Login"} </Button>
+          <Button 
+            variant="conatined" 
+            sx={{ mt:2, borderRadius:10, bgcolor:"#2b2d42" }} 
+            type='submit' fullWidth> 
+            {isSignup? "Signup":"Login"} 
+          </Button>
 
-
-          <Button onClick={()=>setIsSignup(!isSignup)} sx={{ mt:2, borderRadius:10 }} fullWidth> Swtich to {isSignup?"Login ":"Signup"} </Button>
+          <Button 
+            onClick={()=>setIsSignup(!isSignup)} 
+            sx={{ mt:2, borderRadius:10 }} 
+            fullWidth> 
+            Swtich to {isSignup?"Login ":"Signup"} 
+          </Button>
         </Box>
     </form>
   </Dialog>;
