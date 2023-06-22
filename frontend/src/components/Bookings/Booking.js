@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getMoviesDetails } from '../../api-helpers/api-helpers';
+import { getMoviesDetails, newBooking } from '../../api-helpers/api-helpers';
 import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 
 const Booking = () => {
@@ -16,9 +16,12 @@ const Booking = () => {
     const handleChange = (e)=>{
         setInputs((prevState)=>({...prevState,[e.target.name]:e.target.value}));
     };
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(inputs)
+        console.log(inputs);
+        newBooking({ ...inputs, movie: movie._id })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
     }
   return (
     <div>{movie && <Fragment>

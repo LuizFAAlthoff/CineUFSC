@@ -11,6 +11,7 @@ const AuthForm = ({onSubmit, isAdmin}) => {
     password: "",
   });
   const [isSignup, setIsSignup] = useState(false);
+  
   /* Função que gerencia a mudança de estado dos inputs, armazena o valor do campo anterior e o atual */
   const handleChange = (e) => {
     setInputs((preVState)=>({

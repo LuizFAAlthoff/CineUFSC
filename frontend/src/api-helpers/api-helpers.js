@@ -30,6 +30,7 @@ export const sendUserAuthRequest = async(data,signup)=>{
 
 };
 
+// Autentica admin
 export const sendAdminAuthRequest = async (data) => {
   const res = await axios
     .post("/admin/login", {
@@ -46,8 +47,9 @@ export const sendAdminAuthRequest = async (data) => {
   return resData;
 };
 
+// Busca detalhes do filme
 export const getMoviesDetails = async(id) => {
-  
+
   const res = await axios.get(`movie/${id}`).catch(err=> console.log(err));
 
   if (res.status !== 200) {
@@ -57,3 +59,21 @@ export const getMoviesDetails = async(id) => {
   const resData = await res.data;
   return resData;
 }
+
+// Agente filme
+export const newBooking = async (data) => {
+  const res = await axios
+    .post("/booking", {
+      movie: data.movie,
+      seatNumber: data.seatNumber,
+      date: data.date,
+      user: localStorage.getItem("userID"),
+    })
+    .catch((err) => console.log(err));
+
+  if (res.status !== 201) {
+    return console.log("Unexpected Error");
+  }
+  const resData = await res.data;
+  return resData;
+};
