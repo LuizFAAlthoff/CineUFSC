@@ -12,11 +12,11 @@ const UserProfile = () => {
       .catch((err) => console.log(err));
   },[])
 
-  const handDelete =(id)=>{
+  const handleDelete = (id) => {
     deleteBooking(id)
-      .then((res)=>console.log(res))
-      .catch((err)=> console.log(err));
-  }
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Box width={'100%'} display="flex">
@@ -53,7 +53,7 @@ const UserProfile = () => {
                   Data: {new Date(booking.date).toDateString()}
                 </ListItemText>
 
-                <IconButton onClick={handDelete} color='error'>
+                <IconButton onClick={()=>{handleDelete(booking._id)}} color='error'>
                   <DeleteForeverIcon/>
                 </IconButton>
               </ListItem>
