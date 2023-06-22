@@ -1,17 +1,24 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { deleteBooking, getUserBooking } from '../../api-helpers/api-helpers'
+import { deleteBooking, getUserBooking, getUserDetails } from '../../api-helpers/api-helpers'
 import { Box, Button, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const UserProfile = () => {
+  const [user, setUser] = useState();
+
   //Armazena os agendamentos do usuário
   const [bookings, setBookings] = useState([]);
   useEffect(()=>{
     getUserBooking()
       .then((res)=> setBookings(res.bookings))
       .catch((err) => console.log(err));
-  },[])
 
+    getUserDetails()
+      .then((res) => setUser(res.user))
+      .catch((err) => console.log(err));
+
+  },[])
+  //Função para deletar reservas
   const handleDelete = (id) => {
     deleteBooking(id)
       .then((res) => console.log(res))
@@ -20,19 +27,22 @@ const UserProfile = () => {
 
   return (
     <Box width={'100%'} display="flex">
-    {bookings && bookings.length > 0 &&(
       <Fragment>
-        {" "}
-      <Box padding={3} flexDirection={'column'} justifyContent="center" alignItems={"center"} width={"30%"}>
+      {" "}
+      {user && (
+        <Box padding={3} flexDirection={'column'} justifyContent="center" alignItems={"center"} width={"30%"}>
         <AccountCircleIcon sx={{fontSize: "10rem", textAlign:"center", ml:3}} />
         <Typography marginTop={1} padding={1} width={"auto"} textAlign={"center"} border={'1px solid #ccc'} borderRadius={6}>
-          name: {bookings[0].user.name}
+          name: {user.name}
         </Typography>
         <Typography padding={1} width={"auto"} textAlign={"center"} border={'1px solid #ccc'} borderRadius={6}>
-          Email: {bookings[0].user.email}
+          Email: {user.email}
         </Typography>
-      </Box>
-      <Box width={"70%"} display="flex" flexDirection={"column" }>
+        </Box>
+      )}
+
+      {bookings && (
+        <Box width={"70%"} display="flex" flexDirection={"column" }>
         <Typography variant='h3' fontFamily={"verdana"} textAlign="center" padding={2}>
           Reservas
         </Typography>
@@ -60,9 +70,10 @@ const UserProfile = () => {
             ))}
           </List>
         </Box>
-      </Box>
-      </Fragment>
+        </Box>
       )}
+
+      </Fragment>
     </Box>
   )
 }
