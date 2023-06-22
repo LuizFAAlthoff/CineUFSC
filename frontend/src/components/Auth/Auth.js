@@ -4,6 +4,7 @@ import { sendUserAuthRequest } from '../../api-helpers/api-helpers';
 
 const Auth = () => {
   /*Recupera dos dados preenchidos no AuthForm para esse componente */
+  /* Valida usuário com o backend */
   const getData = (data) => {
     sendUserAuthRequest(data.inputs, data.signup)
       .then((res) => console.log(res))
@@ -11,7 +12,7 @@ const Auth = () => {
 
   };
   return (
-    <div>
+    <div>     
       <AuthForm onSubmit={getData} isAdmin={false}/>
     </div>
   );

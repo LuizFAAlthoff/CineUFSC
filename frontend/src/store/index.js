@@ -1,3 +1,5 @@
+/* Gerencia sessão do usuário admin e comum */
+
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const userSclice = createSlice({
@@ -29,6 +31,7 @@ const adminSlice = createSlice({
   },
 });
 
+/* Exporta o estado da sessão para ser usado no app.js */
 export const userActions = userSclice.actions;
 export const adminActions = adminSlice.actions;
 
