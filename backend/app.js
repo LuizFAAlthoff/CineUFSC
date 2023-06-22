@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user-routes";
 import movieRouter from "./routes/movie-routes";
-import adminRouter from "./routes/admin-routes";
-import bookingsRouter from "./routes/booking-routes";
 import cors from "cors";
 
 // importa o dotenv para que o app possa acessar a chave secreta do banco de dados
@@ -23,9 +21,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // o app usa o userRouter para que possa acessar as diferentes rotas
 app.use("/user", userRouter);
-app.use("/admin", adminRouter);
-app.use("/movie", movieRouter);
-app.use("/booking", bookingsRouter);
+app.use("/movie", movieRouter)
+
 // conexão com banco de dados mongodb através da biblioteca mongoose, e utiliza a chave secreta que está no .env
 mongoose
   .connect(
