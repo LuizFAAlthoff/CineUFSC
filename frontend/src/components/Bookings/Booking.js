@@ -4,13 +4,22 @@ import { getMoviesDetails } from '../../api-helpers/api-helpers';
 import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 
 const Booking = () => {
+
     const [movie, setMovie] = useState();
+    const [inputs, setInputs] = useState({ seatNumber: "", date: "" });
     const id = useParams().id;
     useEffect(()=>{
         getMoviesDetails(id)
             .then((res)=>setMovie(res.movie))
             .catch((err)=> console.log(err));
     },[id]);
+    const handleChange = (e)=>{
+        setInputs((prevState)=>({...prevState,[e.target.name]:e.target.value}));
+    };
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        console.log(inputs)
+    }
   return (
     <div>{movie && <Fragment>
     <Typography 
@@ -43,12 +52,12 @@ const Booking = () => {
             </Box>
         </Box>
         <Box width={"50%"} paddingTop={3}>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Box padding={5} margin={'auto'} display={'flex'} flexDirection={"column"}>
                     <FormLabel> Assento</FormLabel>
-                    <TextField name="seatNumber" type={'number'} margin="normal" variant='standard'/>
+                    <TextField  onChange={handleChange} value={inputs.setaNumber } name="seatNumber" type={'number'} margin="normal" variant='standard'/>
                     <FormLabel> Data</FormLabel>
-                    <TextField name="date" type={'date'} margin="normal" variant='standard'/>
+                    <TextField onChange={handleChange} value={inputs.date } name="date" type={'date'} margin="normal" variant='standard'/>
                     <Button type='submit' sx={{mt:3}}> Agendar</Button>
                 </Box>
             </form>
