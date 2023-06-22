@@ -60,7 +60,7 @@ export const getMoviesDetails = async(id) => {
   return resData;
 }
 
-// Agente filme
+// Agenda filmes
 export const newBooking = async (data) => {
   const res = await axios
     .post("/booking", {
@@ -74,6 +74,36 @@ export const newBooking = async (data) => {
   if (res.status !== 201) {
     return console.log("Unexpected Error");
   }
+
+  const resData = await res.data;
+  return resData;
+};
+
+// Exporta agendamentos de filmes feitos por um usuário
+
+export const getUserBooking = async () => {
+  const id = localStorage.getItem("userID");
+  const res = await axios.get(`/user/bookings/${id}`).catch((err) => console.log(err));
+
+  if (res.status !== 200) {
+    return console.log("Unexpected Error");
+  }
+
+  const resData = await res.data;
+  return resData;
+
+};
+
+// Apaga reserva de filme
+
+export const deleteBooking = async (id) => {
+
+  const res = await axios.delete(`/booking/${id}`).catch((err) => console.log(err));
+
+  if (res.status !== 200) {
+    return console.log("Unepxected Error");
+  }
+
   const resData = await res.data;
   return resData;
 };
