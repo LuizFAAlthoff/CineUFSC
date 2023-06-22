@@ -2,6 +2,7 @@ import Admin from "../models/Admin";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// função de criar novo administrador
 export const addAdmin = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email && email.trim() === "" && !password && password.trim() === "") {
@@ -10,6 +11,7 @@ export const addAdmin = async (req, res, next) => {
 
     let existingAdmin;
     try {
+        // promise que procura o administrador pelo email para ver se já existe
         existingAdmin = await Admin.findOne({email});
     } catch (err) {
         return console.log(err);
@@ -45,18 +47,21 @@ export const adminLogin = async (req, res, next) => {
     if (!existingAdmin) {
         return res.status(400).json({message: "Administrador não encontrado"});
     }
+    // usa o bcrypt para comparar a senha inserida com a senha do admin encontrado
     const isPasswordCorrect = bcrypt.compareSync(password, existingAdmin.password);
     if (!isPasswordCorrect) {
         return res.status(400).json({message: "Senha incorreta"});
     }
     
-    const token = jwt.sign({ id: existingAdmin._id }, process.env.SECRET_KEY, {expiresIn: "7d"});
+    // cria o token de autenticação com o id do admin e a chave secreta do .env com validade de 1 dia
+    const token = jwt.sign({id: existingAdmin._id}, process.env.SECRET_KEY, {expiresIn: "1d"});
     
     return res
         .status(200)
         .json({message: "Autenticação bem sucedida", token, id: existingAdmin._id});
 };
 
+// função de pegar todos os administradores cadastrados
 export const getAdmins = async (req, res, next) => {
     let admins;
     try {
@@ -70,6 +75,7 @@ export const getAdmins = async (req, res, next) => {
     return res.status(200).json({admins});
 };
 
+// função de pegar administrador pelo id
 export const getAdminById = async (req, res, next) => {
     const id = req.params.id;
     let admin;

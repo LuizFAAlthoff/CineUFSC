@@ -1,6 +1,5 @@
 import express from "express";
-import { deleteBooking, getBookingById, newBooking } from "../controllers/booking-controller";
-
+import { newBooking, getBookingById, deleteBooking } from "../controllers/booking-controllers";
 const bookingsRouter = express.Router();
 
 bookingsRouter.post("/", newBooking);           // requisição POST no link /booking/ que envia os dados da reserva e recebe de volta o id da nova reserva
