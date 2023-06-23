@@ -94,7 +94,23 @@ export const getMovieById = async (req, res, next) => {
 };
 
 export const deleteMovie = async (req, res, next) => {
-    // recebe o id do usuário a ser excluído pelos parametros da requisição (url)
+    const extractedToken = req.headers.authorization.split(" ")[1];
+    // verifica se o token existe
+    if (!extractedToken && extractedToken.trim() === "") {
+        return res.status(404).json({message: "Token não encontrado"});
+    }
+    let adminId;
+    // verifica se o token é válido, usando o token recebido no parâmetro, a chave secreta e uma função de callback, que recebe o erro e o token decodificado
+    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, decrypted) => {
+        if (err) {
+            return res.status(400).json({message: `${err.message}`});
+    } else {
+        // se o token de login for válido, pega o id do admin que está logado para adicionar o filme posteriormente
+        adminId = decrypted.id;
+        return;
+    }
+    });
+    // recebe os inputs de título, descrição, data de lançamento, url do poster, se é destaque e os atores no body da requisição
     const id = req.params.id;
     let movie;
     try {
