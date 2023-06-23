@@ -10,10 +10,13 @@ const AddMovie = () => {
   const handleChange = (e) =>{
     setInputs( (prevState)=>({...prevState,[e.target.name]:e.target.value}));
   };
+  //Manter valores do input de atores
+  const [actors, setActors] = useState([]);
+  const [actor, setActor] = useState("");
   //Submissão do forms
   const handleSubmit = (e)=>{
     e.preventDefault(); //previne o browser envie a informação para a URL
-    console.log(inputs);
+    console.log(inputs,actors);
   }
   return (
     <div>
@@ -36,8 +39,13 @@ const AddMovie = () => {
 
                 <FormLabel sx={{ labelProsp}} >Atores</FormLabel>
                 <Box display={"flex"}>
-                    <TextField name="actors" variant='standard' margin='normal'></TextField>
-                    <Button>Adicionar</Button>
+                    <TextField value={actor} name="actor" onChange={(e)=>setActor(e.target.value)} variant='standard' margin='normal'></TextField>
+                    <Button onClick={()=>{
+                        setActors([...actors, actor]);
+                        setActor("");
+                    }}>
+                        Adicionar
+                    </Button>
                 </Box>
                 <FormLabel sx={{ labelProsp}} >Featured</FormLabel>
                 <Checkbox name="fetaured" checked={inputs.featured} onClick={(e) => 

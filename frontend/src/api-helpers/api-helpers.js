@@ -123,3 +123,30 @@ export const getUserDetails = async () => {
   const resData = await res.data;
   return resData;
 };
+
+//Adicionar filme
+
+export const AddMovie = async (data) => {
+  const res = axios.post("/movie",{
+    title: data.title,
+    description: data.description,
+    releaseDate: data.releaseDate,
+    posterUrl: data.fetaured,
+    actors: data.actors,
+    admin: localStorage.getItem("adminID"),
+
+  },{
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    }
+  }
+  ).catch(errr=>console.log(err));
+
+  if (res.status !== 201) {
+    return console.log("Unexpected Error");
+  }
+
+  const resData = await res.data;
+  return resData;
+
+}
