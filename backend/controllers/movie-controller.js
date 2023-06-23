@@ -92,3 +92,19 @@ export const getMovieById = async (req, res, next) => {
     }
     return res.status(200).json({movie});
 };
+
+export const deleteMovie = async (req, res, next) => {
+    // recebe o id do usuário a ser excluído pelos parametros da requisição (url)
+    const id = req.params.id;
+    let movie;
+    try {
+        // espera a promise encontrar o objeto user pelo id
+        movie = await Movie.findByIdAndRemove(id);
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!movie) {
+        return res.status(500).json({message: "Erro interno no servidor ao excluir filme"});
+    }
+    return res.status(200).json({ message: "Sucesso ao excluir filme" });
+};
