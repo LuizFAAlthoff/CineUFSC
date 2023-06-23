@@ -1,16 +1,27 @@
 import { Box } from "@mui/system";
 import React, { Fragment, useEffect, useState } from "react";
-import { deleteMovie, getAdminById } from "../../api-helpers/api-helpers";
+import { deleteMovie, getAdminById, getAllMovies } from "../../api-helpers/api-helpers";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const AdminProfile = () => {
   const [admin, setAdmin] = useState();
+  const [movies, setMovies] = useState();
   useEffect(() => {
     getAdminById()
       .then((res) => setAdmin(res.admin))
       .catch((err) => console.log(err));
+
+    getAllMovies()
+      .then((data) => setMovies(data.movies))
+      .catch((err) => console.log(err));
+
   }, []);
+  //Função para atualiar tela
+  const refreshPage = ()=>{
+    window.location.reload();
+  }
+
   //Função para deletar reservas
   const handleDelete = (id) => {
     deleteMovie(id)
@@ -45,7 +56,7 @@ const AdminProfile = () => {
             </Typography>
           </Box>
         )}
-        {admin && admin.addedMovies.length > 0 && (
+        {admin  && (
           <Box width={"70%"} display="flex" flexDirection={"column"}>
             <Typography
               variant="h3"
@@ -53,7 +64,7 @@ const AdminProfile = () => {
               textAlign="center"
               padding={2}
             >
-              Added Movies
+              Filmes Adicionados
             </Typography>
             <Box
               margin={"auto"}
@@ -62,7 +73,7 @@ const AdminProfile = () => {
               width="80%"
             >
             <List>
-                {admin.addedMovies.map((movie, index) => (
+                {movies && movies.map((movie, index) => (
                     <ListItem
                     key={index} // Adicione a propriedade key com o valor index
                     sx={{
@@ -77,7 +88,7 @@ const AdminProfile = () => {
                     >
                         Filme: {movie.title}
                     </ListItemText>
-                    <IconButton onClick={()=>{handleDelete(movie._id)}} color='error'>
+                    <IconButton onClick={()=>{handleDelete(movie._id); refreshPage()}} color='error'>
                         <DeleteForeverIcon/>
                     </IconButton>
                     </ListItem>
