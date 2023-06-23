@@ -19,7 +19,6 @@ const Header = () => {
   /* Extrai o estado do Redux Store */
   const isAdminLoggedIn = useSelector((state)=>state.admin.isLoggedIn);
   const isUserLoggedIn = useSelector((state)=>state.user.isLoggedIn);
-
   const [value, setValue] = useState(0);
   const [movies, setMovies] = useState([]);
   useEffect(() => {
@@ -32,16 +31,25 @@ const Header = () => {
   const logout = (isAdmin) => {
     dispatch(isAdmin ? adminActions.logout() : userActions.logout());
   };
+  // Encaminha para a página do filme pesquisado
+  const navigate = useNavigate();
+  const handleChange = (e, val) => {
+    const movie = movies.find((m) => m.title === val);
+    if (isUserLoggedIn || isAdminLoggedIn) {
+      navigate(`/booking/${movie._id}`);
+    }
+  };
   return (
     <AppBar position="sticky" sx={{ bgcolor: "#2b2d42" }}>
       <Toolbar>
         <Box width={"20%"}>
-          <IconButton LinkComponent={Link} to="/">
+          <IconButton LinkComponent={Link} to="/" >
               <MovieIcon/>
           </IconButton>
         </Box>
         <Box width={"30%"} margin="auto">
-          <Autocomplete
+        <Autocomplete
+            onChange={handleChange}
             freeSolo
             options={movies && movies.map((option) => option.title)}
             renderInput={(params) => (
