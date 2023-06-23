@@ -92,3 +92,35 @@ export const getMovieById = async (req, res, next) => {
     }
     return res.status(200).json({movie});
 };
+
+export const deleteMovie = async (req, res, next) => {
+    const extractedToken = req.headers.authorization.split(" ")[1];
+    // verifica se o token existe
+    if (!extractedToken && extractedToken.trim() === "") {
+        return res.status(404).json({message: "Token não encontrado"});
+    }
+    let adminId;
+    // verifica se o token é válido, usando o token recebido no parâmetro, a chave secreta e uma função de callback, que recebe o erro e o token decodificado
+    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, decrypted) => {
+        if (err) {
+            return res.status(400).json({message: `${err.message}`});
+    } else {
+        // se o token de login for válido, pega o id do admin que está logado para adicionar o filme posteriormente
+        adminId = decrypted.id;
+        return;
+    }
+    });
+    // recebe os inputs de título, descrição, data de lançamento, url do poster, se é destaque e os atores no body da requisição
+    const id = req.params.id;
+    let movie;
+    try {
+        // espera a promise encontrar o objeto user pelo id
+        movie = await Movie.findByIdAndRemove(id);
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!movie) {
+        return res.status(500).json({message: "Erro interno no servidor ao excluir filme"});
+    }
+    return res.status(200).json({ message: "Sucesso ao excluir filme" });
+};
