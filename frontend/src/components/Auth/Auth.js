@@ -3,13 +3,15 @@ import AuthForm from './AuthForm';
 import { sendUserAuthRequest } from '../../api-helpers/api-helpers';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
+  const navigate = useNavigate();
   //Gerencia persistencia da sessão do usuário
   const onResReceived = (data) => {
-    console.log(data);
     dispatch(userActions.login())
     localStorage.setItem("userID",data.id);
+    navigate("/");
 
   }
   // Retorna a referencia para o dispatch da redux store

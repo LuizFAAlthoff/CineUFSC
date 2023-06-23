@@ -3,15 +3,17 @@ import AuthForm from './AuthForm';
 import { sendAdminAuthRequest } from '../../api-helpers/api-helpers';
 import { useDispatch } from 'react-redux';
 import { adminActions } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+  const navigate = useNavigate()
   // Gerencia persistencia da sessão do admin
   const dispatch = useDispatch()
   const onResReceived = (data) =>{
-    console.log(data);
     dispatch(adminActions.login())
     localStorage.setItem("adminID", data.id)
     localStorage.setItem("token", data.token)
+    navigate("/");
   }
 
   // Retorna a referencia para o dispatch da redux store

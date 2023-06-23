@@ -1,6 +1,7 @@
 import { Box, Button, Dialog, FormLabel, IconButton, TextField, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 const labelStyle = {mt:1, mb: 1};
 /* OnSubmit -> envia as informações para o componente pai*/
 /* isAdmin -> Valida se o usuário está logando com um usuário elevado */
@@ -28,7 +29,7 @@ const AuthForm = ({onSubmit, isAdmin}) => {
   };
   return <Dialog PaperProps={{style:{borderRadius:20}}} open={true}>
     <Box sx={{ml:"auto", padding:1}}>
-        <IconButton>
+        <IconButton LinkComponent={Link} to="/">
             <CloseRoundedIcon/>
         </IconButton>
     </Box>

@@ -37,7 +37,7 @@ const Header = () => {
       <Toolbar>
         <Box width={"20%"}>
           <IconButton LinkComponent={Link} to="/">
-            <MovieIcon />
+              <MovieIcon/>
           </IconButton>
         </Box>
         <Box width={"30%"} margin="auto">
