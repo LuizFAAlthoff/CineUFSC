@@ -81,6 +81,7 @@ const AdminProfile = () => {
                         color: "white",
                         textAlign: "center",
                         margin: 1,
+                        borderRadius:3,
                     }}
                     >
                     <ListItemText

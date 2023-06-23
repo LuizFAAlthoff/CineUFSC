@@ -13,11 +13,11 @@ const HomePage = () => {
   }, []);
   return (
     <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
-      <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
+      <Box margin={"auto"} width="50%" height={"100vh"} padding={2}>
       <img
-          src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2023/05/boogey-1-scaled.jpg?resize=1075%2C1536&ssl=1"
+          src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2023/05/boogey-1.jpg"
           alt="The Boogeyman"
-          width="50%"
+          width="100%"
           height="100%%"
         />
       </Box>

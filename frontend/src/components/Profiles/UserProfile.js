@@ -53,7 +53,7 @@ const UserProfile = () => {
         <Box margin={'auto'} display="flex" flexDirection={"column"} width="80%">
           <List>
             {bookings.map((booking,index) => (
-              <ListItem sx={{bgcolor: "#00d386", color: "white", textAlign:"center",margin: 1,}}>
+              <ListItem sx={{borderRadius:3, bgcolor: "#00d386", color: "white", textAlign:"center",margin: 1,}}>
 
                 <ListItemText sx={{margin:1,width:'auto',textAlign:"left"}}>
                   Filme: {booking.movie.title}
