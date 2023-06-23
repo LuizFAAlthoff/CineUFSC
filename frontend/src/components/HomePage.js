@@ -15,10 +15,10 @@ const HomePage = () => {
     <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
       <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
       <img
-          src="https://www.joblo.com/wp-content/uploads/2023/05/The-Boogeyman-poster-3.jpg"
+          src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2023/05/boogey-1-scaled.jpg?resize=1075%2C1536&ssl=1"
           alt="The Boogeyman"
-          width="100%"
-          height="100%"
+          width="50%"
+          height="100%%"
         />
       </Box>
       <Box padding={5} margin="auto">

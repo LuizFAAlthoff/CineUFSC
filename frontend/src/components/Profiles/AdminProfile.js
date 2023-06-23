@@ -56,7 +56,7 @@ const AdminProfile = () => {
             </Typography>
           </Box>
         )}
-        {admin  && (
+        {admin && (
           <Box width={"70%"} display="flex" flexDirection={"column"}>
             <Typography
               variant="h3"

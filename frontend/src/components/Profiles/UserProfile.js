@@ -25,6 +25,10 @@ const UserProfile = () => {
       .catch((err) => console.log(err));
   };
 
+  function refreshPage(){ 
+    window.location.reload(); 
+}
+
   return (
     <Box width={'100%'} display="flex">
       <Fragment>
@@ -41,7 +45,7 @@ const UserProfile = () => {
         </Box>
       )}
 
-      {bookings && (
+      {bookings && bookings.length > 0 && (
         <Box width={"70%"} display="flex" flexDirection={"column" }>
         <Typography variant='h3' fontFamily={"verdana"} textAlign="center" padding={2}>
           Reservas
@@ -63,7 +67,7 @@ const UserProfile = () => {
                   Data: {new Date(booking.date).toDateString()}
                 </ListItemText>
 
-                <IconButton onClick={()=>{handleDelete(booking._id)}} color='error'>
+                <IconButton onClick={()=>{handleDelete(booking._id); refreshPage()}} color='error'>
                   <DeleteForeverIcon/>
                 </IconButton>
               </ListItem>
