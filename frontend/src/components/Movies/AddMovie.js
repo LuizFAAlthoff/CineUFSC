@@ -29,7 +29,7 @@ const AddMovie = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs, actors);
-    addMovie({ ...inputs, actors: actors })
+    addMovie({ ...inputs, actors })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
