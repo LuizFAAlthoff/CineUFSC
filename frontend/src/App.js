@@ -32,32 +32,29 @@ function App() {
       <Header />
       <section>
         <Routes>
-          <Route>
-            <Route path="/" element={<HomePage/>}/>
-            <Route path="/movies" element={<Movies/>}/>
-            {!isUserLoggedIn && !isAdminLoggedIn && (
-              <>
+        <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<Movies />} />
+          {!isUserLoggedIn && !isAdminLoggedIn && (
+            <>
               {" "}
-              <Route path="/admin" element={<Admin/>}/>
-              <Route path="/auth" element={<Auth/>}/>
-              </>
-            )}
-            {isUserLoggedIn && !isAdminLoggedIn &&(
-              <>
-              {""}
-              <Route path="/user" element={<UserProfile/>}/>
-              <Route path="/booking/:id" element={<Booking/>}/>
-              </>
-            )}
-
-            {isAdminLoggedIn && !isUserLoggedIn &&(
-              <>
-              {""}
-              <Route path="/add" element={<AddMovie/>}/>
-              <Route path="/user-admin" element={<AdminProfile/>}/>
-              </>
-            )}
-          </Route>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/auth" element={<Auth />} />
+            </>
+          )}
+          {isUserLoggedIn && !isAdminLoggedIn && (
+            <>
+              {" "}
+              <Route path="/user" element={<UserProfile />} />
+              <Route path="/booking/:id" element={<Booking />} />
+            </>
+          )}
+          {isAdminLoggedIn && !isUserLoggedIn && (
+            <>
+              {" "}
+              <Route path="/add" element={<AddMovie />} />
+              <Route path="/user-admin" element={<AdminProfile />} />{" "}
+            </>
+          )}
         </Routes>
       </section>
     </div>

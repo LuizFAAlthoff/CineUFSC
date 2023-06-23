@@ -15,6 +15,12 @@ const AddMovie = () => {
     releaseDate: "",
     featured: false,
   });
+
+ //Função para atualiar tela
+  const refreshPage = ()=>{
+    window.location.reload();
+  }
+
   // Mudanca do estado dos inputs
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -72,7 +78,7 @@ const AddMovie = () => {
             }))
           } sx={{ mr: "auto" }} />
 
-          <Button type='submit' variant='contained' sx={{ margin: "auto", width: "30%", bgcolor: "#2b2d42", ":hover": { bgcolor: "#121217" } }}>
+          <Button type='submit' onClick={()=>{refreshPage()}} variant='contained' sx={{ margin: "auto", width: "30%", bgcolor: "#2b2d42", ":hover": { bgcolor: "#121217" } }}>
             Adicionar Novo Filme
           </Button>
         </Box>
