@@ -186,4 +186,5 @@ export const deleteMovie = async (id) => {
 
   const resData = await res.data;
   return resData;
+  
 };
