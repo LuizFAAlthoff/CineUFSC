@@ -1,8 +1,9 @@
 import { Box } from "@mui/system";
 import React, { Fragment, useEffect, useState } from "react";
-import { getAdminById } from "../../api-helpers/api-helpers";
+import { deleteMovie, getAdminById } from "../../api-helpers/api-helpers";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const AdminProfile = () => {
   const [admin, setAdmin] = useState();
   useEffect(() => {
@@ -10,6 +11,12 @@ const AdminProfile = () => {
       .then((res) => setAdmin(res.admin))
       .catch((err) => console.log(err));
   }, []);
+  //Função para deletar reservas
+  const handleDelete = (id) => {
+    deleteMovie(id)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+  };
   return (
     <Box width={"100%"} display="flex">
       <Fragment>
@@ -70,6 +77,9 @@ const AdminProfile = () => {
                     >
                         Filme: {movie.title}
                     </ListItemText>
+                    <IconButton onClick={()=>{handleDelete(movie._id)}} color='error'>
+                        <DeleteForeverIcon/>
+                    </IconButton>
                     </ListItem>
                 ))}
             </List>

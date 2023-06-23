@@ -167,5 +167,23 @@ export const getAdminById = async () =>{
 
   const resData = await res.data;
   return resData;
-  
+
+};
+
+// Deleta filme
+
+export const deleteMovie = async (id) => {
+
+  const res = await axios.delete(`/movie/${id}`,{        
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  }).catch((err) => console.log(err));
+
+  if (res.status !== 200) {
+    return console.log("Unepxected Error");
+  }
+
+  const resData = await res.data;
+  return resData;
 };
