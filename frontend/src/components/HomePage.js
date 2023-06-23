@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Grid, Button, Typography, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllMovies } from "../api-helpers/api-helpers";
@@ -26,10 +26,12 @@ const HomePage = () => {
           Últimos Lançamentos
         </Typography>
       </Box>
-      <Box
+      <Container fixed marginTop={4}>
+      <Grid
+        container
         margin={"auto"}
         display="flex"
-        width="80%"
+        spacing={3}
         justifyContent={"center"}
         alignItems="center"
         flexWrap="wrap"
@@ -46,7 +48,8 @@ const HomePage = () => {
                 key={index}
               />
             ))}
-      </Box>
+      </Grid>
+      </Container>
       <Box display="flex" padding={5} margin="auto">
         <Button
           LinkComponent={Link}

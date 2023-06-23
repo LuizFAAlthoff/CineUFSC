@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { getAllMovies } from "../../api-helpers/api-helpers";
 import MovieItem from "./MovieItem";
@@ -11,7 +11,7 @@ const Movies = () => {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <Box margin={"auto"} marginTop={4}>
+    <Container fixed marginTop={4}>
       <Typography
         margin={"auto"}
         variant="h4"
@@ -23,13 +23,11 @@ const Movies = () => {
       >
         Todos os Filmes
       </Typography>
-      <Box
-        width={"100%"}
-        margin="auto"
+      <Grid
+        container
+        spacing={3}
         marginTop={5}
-        display={"flex"}
         justifyContent="flex-start"
-        flexWrap={"wrap"}
       >
         {movies &&
           movies.map((movie, index) => (
@@ -41,8 +39,8 @@ const Movies = () => {
               title={movie.title}
             />
           ))}
-      </Box>
-    </Box>
+      </Grid>
+    </Container>
   );
 };
 
