@@ -126,27 +126,31 @@ export const getUserDetails = async () => {
 
 //Adicionar filme
 
-export const AddMovie = async (data) => {
-  const res = axios.post("/movie",{
-    title: data.title,
-    description: data.description,
-    releaseDate: data.releaseDate,
-    posterUrl: data.fetaured,
-    actors: data.actors,
-    admin: localStorage.getItem("adminID"),
-
-  },{
-    headers:{
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    }
-  }
-  ).catch(errr=>console.log(err));
+export const addMovie = async (data) => {
+  const res = await axios
+    .post(
+      "/movie",
+      {
+        title: data.title,
+        description: data.description,
+        releaseDate: data.releaseDate,
+        posterUrl: data.posterUrl,
+        fetaured: data.fetaured,
+        actors: data.actors,
+        admin: localStorage.getItem("adminId"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    .catch((err) => console.log(err));
 
   if (res.status !== 201) {
-    return console.log("Unexpected Error");
+    return console.log("Unexpected Error Occurred");
   }
 
   const resData = await res.data;
   return resData;
-
-}
+};

@@ -1,68 +1,84 @@
 import { Box, Button, Checkbox, FormLabel, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-const labelProsp = {
-    mt: 1,
-    mb: 1,
+import { addMovie } from '../../api-helpers/api-helpers';
+
+const labelProps = {
+  mt: 1,
+  mb: 1,
 }
+
 const AddMovie = () => {
-  //Mudança do estados dos elementos do forms
-  const [inputs, setInputs] = useState({title:"",description:"",posterUrl:"",releaseDate:"",featured: false,});
-  const handleChange = (e) =>{
-    setInputs( (prevState)=>({...prevState,[e.target.name]:e.target.value}));
+  const [inputs, setInputs] = useState({
+    title: "",
+    description: "",
+    posterUrl: "",
+    releaseDate: "",
+    featured: false,
+  });
+  // Mudanca do estado dos inputs
+  const handleChange = (e) => {
+    setInputs((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
-  //Manter valores do input de atores
+
   const [actors, setActors] = useState([]);
   const [actor, setActor] = useState("");
-  //Submissão do forms
-  const handleSubmit = (e)=>{
-    e.preventDefault(); //previne o browser envie a informação para a URL
-    console.log(inputs,actors);
+  // Submissao do forms e chamada da API para criacao do filme
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputs, actors);
+    addMovie({ ...inputs, actors: actors })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
+
   return (
     <div>
-        <form onSubmit={handleSubmit}>
-            <Box width={'50%'} padding={10} margin="auto" display={'flex'} flexDirection={'column'} boxShadow={'10px 10px 20px #ccc'}>
-                <Typography textAlign={"center"} variant='h5' fontFamily={"verdana"}>
-                    Adicionar Novo Filme
-                </Typography>
-                <FormLabel sx={{ labelProsp}}>Titulo</FormLabel>
-                <TextField value={inputs.title} onChange={handleChange} name="title" variant='standard' margin='normal'></TextField>
+      <form onSubmit={handleSubmit}>
+        <Box width={'50%'} padding={10} margin="auto" display={'flex'} flexDirection={'column'} boxShadow={'10px 10px 20px #ccc'}>
+          <Typography textAlign={"center"} variant='h5' fontFamily={"verdana"}>
+            Adicionar Novo Filme
+          </Typography>
+          <FormLabel sx={labelProps}>Titulo</FormLabel>
+          <TextField value={inputs.title} onChange={handleChange} name="title" variant='standard' margin='normal' />
 
-                <FormLabel sx={{ labelProsp}} >Descrição</FormLabel>
-                <TextField value={inputs.description} onChange={handleChange} name="description" variant='standard' margin='normal'></TextField>
+          <FormLabel sx={labelProps} >Descrição</FormLabel>
+          <TextField value={inputs.description} onChange={handleChange} name="description" variant='standard' margin='normal' />
 
-                <FormLabel sx={{ labelProsp}} >URL do Poster</FormLabel>
-                <TextField value={inputs.posterUrl} onChange={handleChange} name="posterUrl" variant='standard' margin='normal'></TextField>
+          <FormLabel sx={labelProps} >URL do Poster</FormLabel>
+          <TextField value={inputs.posterUrl} onChange={handleChange} name="posterUrl" variant='standard' margin='normal' />
 
-                <FormLabel sx={{ labelProsp}} >Data de Lançamento</FormLabel>
-                <TextField  type={'date'} value={inputs.releaseDate} onChange={handleChange} name="releaseDate" variant='standard' margin='normal'></TextField>
+          <FormLabel sx={labelProps} >Data de Lançamento</FormLabel>
+          <TextField type={'date'} value={inputs.releaseDate} onChange={handleChange} name="releaseDate" variant='standard' margin='normal' />
 
-                <FormLabel sx={{ labelProsp}} >Atores</FormLabel>
-                <Box display={"flex"}>
-                    <TextField value={actor} name="actor" onChange={(e)=>setActor(e.target.value)} variant='standard' margin='normal'></TextField>
-                    <Button onClick={()=>{
-                        setActors([...actors, actor]);
-                        setActor("");
-                    }}>
-                        Adicionar
-                    </Button>
-                </Box>
-                <FormLabel sx={{ labelProsp}} >Featured</FormLabel>
-                <Checkbox name="fetaured" checked={inputs.featured} onClick={(e) => 
-                    setInputs((prevSate) => ({
-                        ...prevSate,
-                    featured: e.target.checked,
-                     }))
-                    }
-                    sx={{ mr: "auto" }}
-                />
+          <FormLabel sx={labelProps} >Atores</FormLabel>
+          <Box display={"flex"}>
+            <TextField value={actor} name="actor" onChange={(e) => setActor(e.target.value)} variant='standard' margin='normal' />
+            <Button onClick={() => {
+              setActors([...actors, actor]);
+              setActor("");
+            }}>
+              Adicionar
+            </Button>
+          </Box>
 
-                <Button type='submit' variant='contained' sx={{margin:"auto", width:"30%", bgcolor:"#2b2d42", ":hover":{bgcolor:"#121217"},}}> 
-                    Adicionar Novo Filme
-                </Button>
-            </Box>
-        </form>
+          <FormLabel sx={labelProps} >Featured</FormLabel>
+          <Checkbox name="featured" checked={inputs.featured} onClick={(e) =>
+            setInputs((prevState) => ({
+              ...prevState,
+              featured: e.target.checked,
+            }))
+          } sx={{ mr: "auto" }} />
+
+          <Button type='submit' variant='contained' sx={{ margin: "auto", width: "30%", bgcolor: "#2b2d42", ":hover": { bgcolor: "#121217" } }}>
+            Adicionar Novo Filme
+          </Button>
+        </Box>
+      </form>
     </div>
   )
 }
-export default AddMovie
+
+export default AddMovie;
