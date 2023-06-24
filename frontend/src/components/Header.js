@@ -1,97 +1,235 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   AppBar,
-  Autocomplete,
-  IconButton,
-  Tab,
-  Tabs,
-  TextField,
   Toolbar,
-} from "@mui/material";
-import MovieIcon from "@mui/icons-material/Movie";
-import { Box } from "@mui/system";
-import { getAllMovies } from "../api-helpers/api-helpers";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { adminActions, userActions } from "../store";
+  Box,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Container,
+  Avatar,
+  Button,
+  Autocomplete,
+  TextField
+} from '@mui/material';
+import {
+  Menu as MenuIcon,
+  Adb as AdbIcon,
+  Movie as MovieIcon,
+} from '@mui/icons-material';
+import { getAllMovies } from '../api-helpers/api-helpers';
+import { adminActions, userActions } from '../store';
+
+const userPages = ['Filmes']
+const notLoginPage = ['Filmes','Auth','Admin']
+const AdminPages = ['Adicionar Filme']
+const settings = ['Profile', 'Logout'];
 
 const Header = () => {
-  /* Extrai o estado do Redux Store */
-  const isAdminLoggedIn = useSelector((state)=>state.admin.isLoggedIn);
-  const isUserLoggedIn = useSelector((state)=>state.user.isLoggedIn);
-  const [value, setValue] = useState(0);
-  const [movies, setMovies] = useState([]);
-  useEffect(() => {
-    getAllMovies()
-      .then((data) => setMovies(data.movies))
-      .catch((err) => console.log(err));
-  }, []);
-  //Logout
-  const dispatch = useDispatch();
-  const logout = (isAdmin) => {
-    dispatch(isAdmin ? adminActions.logout() : userActions.logout());
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
   };
-  // Encaminha para a página do filme pesquisado
-  const navigate = useNavigate();
-  const handleChange = (e, val) => {
-    const movie = movies.find((m) => m.title === val);
-    if (isUserLoggedIn || isAdminLoggedIn) {
-      navigate(`/booking/${movie._id}`);
-    }
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+    /* Extrai o estado do Redux Store */
+    const isAdminLoggedIn = useSelector((state)=>state.admin.isLoggedIn);
+    const isUserLoggedIn = useSelector((state)=>state.user.isLoggedIn);
+    const [value, setValue] = useState(0);
+    const [movies, setMovies] = useState([]);
+    useEffect(() => {
+      getAllMovies()
+        .then((data) => setMovies(data.movies))
+        .catch((err) => console.log(err));
+    }, []);
+    //Logout
+    const dispatch = useDispatch();
+    const logout = (isAdmin) => {
+      dispatch(isAdmin ? adminActions.logout() : userActions.logout());
+    };
+    // Encaminha para a página do filme pesquisado
+    const navigate = useNavigate();
+    const handleChange = (e, val) => {
+      const movie = movies.find((m) => m.title === val);
+      if (isUserLoggedIn || isAdminLoggedIn) {
+        navigate(`/booking/${movie._id}`);
+      }
+    };
+
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "#2b2d42" }}>
-      <Toolbar>
-        <Box width={"20%"}>
-          <IconButton LinkComponent={Link} to="/" >
-              <MovieIcon/>
-          </IconButton>
-        </Box>
-        <Box width={"30%"} margin="auto">
-        <Autocomplete
-            onChange={handleChange}
-            freeSolo
-            options={movies && movies.map((option) => option.title)}
-            renderInput={(params) => (
-              <TextField
-                sx={{ input: { color: "white" } }}
-                variant="standard"
-                {...params}
-                placeholder="Pesquise através de multiplos filmes"
-              />
-            )}
-          />
-        </Box>
-        <Box display="flex">
-        <Tabs
-            textColor="inherit"
-            indicatorColor="secondary"
-            value={value}
-            onChange={(e, val) => setValue(val)}
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <MovieIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
-            <Tab LinkComponent={Link} to="/movies" label="Filmes" />
-            {!isAdminLoggedIn && !isUserLoggedIn && [
-              <Tab key="admin" LinkComponent={Link} to="/admin" label="Admin" />,
-              <Tab key="auth" LinkComponent={Link} to="/auth" label="Auth" />,
-            ]}
+            HOME
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {notLoginPage.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+
+          <MovieIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            HOME
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {!isAdminLoggedIn && !isUserLoggedIn &&(
+                <>
+                {notLoginPage.map((page) => (
+                <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                    {page}
+                </Button>
+            ))}
+                </>
+            )}
+
             {isUserLoggedIn && (
-              [
-                <Tab key="profile" LinkComponent={Link} to="/user" label="Perfil" />,
-                <Tab key="logout" onClick={() => logout(false)} label="Logout" LinkComponent={Link} to="/" />,
-              ]
+            <>
+                {userPages.map((page) => (
+                <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                    {page}
+                </Button>
+                ))}
+            </>
             )}
+
             {isAdminLoggedIn && (
-              [
-                <Tab key="add" LinkComponent={Link} to="/add" label="Adicionar Filme" />,
-                <Tab key="profile" LinkComponent={Link} to="/user-admin" label="Perfil" />,
-                <Tab key="logout" onClick={() => logout(true)} label="Logout" LinkComponent={Link} to="/" />,
-              ]
+            <>
+            {AdminPages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
+            ))}
+            </>
             )}
-          </Tabs>
-       </Box> 
-      </Toolbar>
+
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+                {(isAdminLoggedIn || isUserLoggedIn) &&(
+                <>
+                    <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    </IconButton>
+                    </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                        >
+                        {settings.map((setting) => (
+                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            <Typography textAlign="center">{setting}</Typography>
+                            </MenuItem>
+                        ))}
+                    </Menu>
+                </>)}
+          </Box>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
-};
+}
 
 export default Header;
