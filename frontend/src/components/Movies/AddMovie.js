@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormLabel, TextField, Typography, Grid } from '@mui/material'
+import { Box, Button, Checkbox, FormLabel, TextField, Typography, Grid, Container } from '@mui/material'
 import React, { useState } from 'react'
 import { addMovie } from '../../api-helpers/api-helpers';
 
@@ -41,11 +41,12 @@ const AddMovie = () => {
   }
 
   return (
+    <Container fixed marginTop={4}>
     <Grid item xs={12} md={6} lg={4} >
       <form onSubmit={handleSubmit}>
-        <Box width={'50%'} padding={10} margin="auto" display={'flex'} flexDirection={'column'} boxShadow={'10px 10px 20px #ccc'}>
+        <Box padding={10} margin="auto" display={'flex'} flexDirection={'column'} boxShadow={'10px 10px 20px #ccc'}>
           <Typography textAlign={"center"} variant='h5' fontFamily={"verdana"}>
-            Adicionar Novo Filme
+             Novo Filme
           </Typography>
           <FormLabel sx={labelProps}>Titulo</FormLabel>
           <TextField value={inputs.title} onChange={handleChange} name="title" variant='standard' margin='normal' />
@@ -78,12 +79,13 @@ const AddMovie = () => {
             }))
           } sx={{ mr: "auto" }} />
 
-          <Button type='submit' onClick={()=>{refreshPage()}} variant='contained' sx={{ margin: "auto", width: "30%", bgcolor: "#2b2d42", ":hover": { bgcolor: "#121217" } }}>
+          <Button type='submit' onClick={()=>{refreshPage()}} variant='contained' sx={{ margin: "auto", bgcolor: "#2b2d42", ":hover": { bgcolor: "#121217" } }}>
             Adicionar Novo Filme
           </Button>
         </Box>
       </form>
       </Grid>
+    </Container>
   )
 }
 
