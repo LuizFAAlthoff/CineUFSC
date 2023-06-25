@@ -82,39 +82,41 @@ const UserProfile = () => {
             </Typography>
 
             <Box margin="auto" width="80%">
-              <List sx={{ bgcolor: "#00d386", color: "white", borderRadius: 3 }}>
-                {bookings.map((booking, index) => (
-                  <ListItem
-                    key={index}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "flex-start",
-                      alignItems: "center",
-                      margin: 1,
-                    }}
-                  >
-                    <ListItemText
-                      primary={`Filme: ${booking.movie.title}`}
-                      sx={{ width: "auto", mr: 2 }}
-                      primaryTypographyProps={{ variant: "body1" }}
-                    />
-                    <ListItemText
-                      primary={`Assento: ${booking.seatNumber}`}
-                      sx={{ width: "auto", mr: 2 }}
-                      primaryTypographyProps={{ variant: "body1" }}
-                    />
-                    <ListItemText
-                      primary={`Data: ${new Date(booking.date).toDateString()}`}
-                      sx={{ width: "auto", mr: 2 }}
-                      primaryTypographyProps={{ variant: "body1" }}
-                    />
-                    <IconButton onClick={() => { handleDelete(booking._id); refreshPage(); }} color='error'>
-                      <DeleteForeverIcon />
-                    </IconButton>
-                  </ListItem>
-                ))}
-              </List>
+              {bookings.length >0 &&(
+                <List sx={{ bgcolor: "#00d386", color: "white", borderRadius: 3 }}>
+                  {bookings.map((booking, index) => (
+                    <ListItem
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        margin: 1,
+                      }}
+                    >
+                      <ListItemText
+                        primary={`Filme: ${booking.movie.title}`}
+                        sx={{ width: "auto", mr: 2 }}
+                        primaryTypographyProps={{ variant: "body1" }}
+                      />
+                      <ListItemText
+                        primary={`Assento: ${booking.seatNumber}`}
+                        sx={{ width: "auto", mr: 2 }}
+                        primaryTypographyProps={{ variant: "body1" }}
+                      />
+                      <ListItemText
+                        primary={`Data: ${new Date(booking.date).toDateString()}`}
+                        sx={{ width: "auto", mr: 2 }}
+                        primaryTypographyProps={{ variant: "body1" }}
+                      />
+                      <IconButton onClick={() => { handleDelete(booking._id); refreshPage(); }} color='error'>
+                        <DeleteForeverIcon />
+                      </IconButton>
+                    </ListItem>
+                  ))}
+                </List>
+              )}
             </Box>
           </Box>
         </Box>
