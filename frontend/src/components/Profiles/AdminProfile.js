@@ -4,9 +4,11 @@ import { deleteMovie, getAdminById, getAllMovies } from "../../api-helpers/api-h
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 const AdminProfile = () => {
   const [admin, setAdmin] = useState();
   const [movies, setMovies] = useState();
+
   useEffect(() => {
     getAdminById()
       .then((res) => setAdmin(res.admin))
@@ -15,90 +17,95 @@ const AdminProfile = () => {
     getAllMovies()
       .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
-
   }, []);
-  //Função para atualiar tela
-  const refreshPage = ()=>{
+
+  // Função para atualizar a página
+  const refreshPage = () => {
     window.location.reload();
   }
 
-  //Função para deletar reservas
+  // Função para deletar reservas
   const handleDelete = (id) => {
     deleteMovie(id)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
+
   return (
-    <Box width={"100%"} display="flex">
-      <Fragment>
-        {" "}
-        {admin && (
-          <Box
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
-            width={"30%"}
-            padding={3}
-          >
+    <Box width="100%" display="flex" flexDirection={{ xs: "column", md: "row" }} alignItems="center">
+      {admin && (
+        <Box
+          flexDirection="column"
+          justifyContent="center"
+          alignItems={{ xs: "center", md: "flex-start" }}
+          width={{ xs: "100%", md: "30%" }}
+          padding={3}
+        >
+          <Box display="flex" flexDirection="column" alignItems="center">
             <AccountCircleIcon
-              sx={{ fontSize: "10rem", textAlign: "center", ml: 3 }}
+              sx={{ fontSize: { xs: "6rem", md: "10rem" }, textAlign: { xs: "center", md: "left" }, ml: 3 }}
             />
 
             <Typography
               mt={1}
               padding={1}
-              width={"auto"}
-              textAlign={"center"}
-              border={"1px solid #ccc"}
+              width="auto"
+              textAlign="center"
+              border="1px solid #ccc"
               borderRadius={6}
+              sx={{ wordWrap: 'break-word' }}
             >
               Email: {admin.email}
             </Typography>
           </Box>
-        )}
-        {admin && (
-          <Box width={"70%"} display="flex" flexDirection={"column"}>
+        </Box>
+      )}
+
+      {admin && (
+        <Box width="100%" display="flex" flexDirection="column" alignItems={{ xs: "center", md: "center" }}>
+          <Box display="flex" flexDirection="column" alignItems="center">
             <Typography
               variant="h3"
-              fontFamily={"verdana"}
-              textAlign="center"
+              fontFamily="verdana"
+              textAlign={{ xs: "center", md: "center" }}
               padding={2}
             >
               Filmes Adicionados
             </Typography>
+
             <Box
-              margin={"auto"}
+              margin="auto"
               display="flex"
-              flexDirection={"column"}
+              flexDirection="column"
               width="80%"
             >
-            <List>
+              <List>
                 {movies && movies.map((movie, index) => (
-                    <ListItem
-                    key={index} // Adicione a propriedade key com o valor index
+                  <ListItem
+                    key={index}
                     sx={{
-                        bgcolor: "#00d386",
-                        color: "white",
-                        textAlign: "center",
-                        margin: 1,
-                        borderRadius:3,
+                      bgcolor: "#00d386",
+                      color: "white",
+                      textAlign: "center",
+                      margin: 1,
+                      borderRadius: 3,
                     }}
-                    >
+                  >
                     <ListItemText
-                        sx={{ margin: 1, width: "auto", textAlign: "left" }}
+                      sx={{ margin: 1, width: "auto", textAlign: "left" }}
                     >
-                        Filme: {movie.title}
+                      Filme: {movie.title}
                     </ListItemText>
-                    <IconButton onClick={()=>{handleDelete(movie._id); refreshPage()}} color='error'>
-                        <DeleteForeverIcon/>
+                    <IconButton onClick={() => { handleDelete(movie._id); refreshPage() }} color='error'>
+                      <DeleteForeverIcon />
                     </IconButton>
-                    </ListItem>
+                  </ListItem>
                 ))}
-            </List>
+              </List>
             </Box>
           </Box>
-        )}
-      </Fragment>
+        </Box>
+      )}
     </Box>
   );
 };

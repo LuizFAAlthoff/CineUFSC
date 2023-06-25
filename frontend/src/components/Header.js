@@ -14,7 +14,7 @@ import {
   useTheme
 } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
-import MenuIcon from "@mui/icons-material/Menu"; // Add this line
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { adminActions, userActions } from "../store";
