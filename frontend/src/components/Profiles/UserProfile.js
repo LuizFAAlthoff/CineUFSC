@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { deleteBooking, getUserBooking, getUserDetails } from '../../api-helpers/api-helpers';
-import { Box, IconButton, List, ListItem, Typography } from '@mui/material';
+import { Box, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -82,42 +82,33 @@ const UserProfile = () => {
             </Typography>
 
             <Box margin="auto" width="80%">
-              <List>
+              <List sx={{ bgcolor: "#00d386", color: "white", borderRadius: 3 }}>
                 {bookings.map((booking, index) => (
                   <ListItem
                     key={index}
                     sx={{
                       display: "flex",
-                      flexDirection: { xs: "column", md: "row" },
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
                       alignItems: "center",
-                      bgcolor: "#00d386",
-                      color: "white",
-                      textAlign: "center",
                       margin: 1,
-                      borderRadius: 3,
                     }}
                   >
-                    <Typography
-                      sx={{ margin: 1, width: "auto", textAlign: "left" }}
-                      variant="body1"
-                    >
-                      Filme: {booking.movie.title}
-                    </Typography>
-
-                    <Typography
-                      sx={{ margin: 1, width: "auto", textAlign: "left" }}
-                      variant="body1"
-                    >
-                      Assento: {booking.seatNumber}
-                    </Typography>
-
-                    <Typography
-                      sx={{ margin: 1, width: "auto", textAlign: "left" }}
-                      variant="body1"
-                    >
-                      Data: {new Date(booking.date).toDateString()}
-                    </Typography>
-
+                    <ListItemText
+                      primary={`Filme: ${booking.movie.title}`}
+                      sx={{ width: "auto", mr: 2 }}
+                      primaryTypographyProps={{ variant: "body1" }}
+                    />
+                    <ListItemText
+                      primary={`Assento: ${booking.seatNumber}`}
+                      sx={{ width: "auto", mr: 2 }}
+                      primaryTypographyProps={{ variant: "body1" }}
+                    />
+                    <ListItemText
+                      primary={`Data: ${new Date(booking.date).toDateString()}`}
+                      sx={{ width: "auto", mr: 2 }}
+                      primaryTypographyProps={{ variant: "body1" }}
+                    />
                     <IconButton onClick={() => { handleDelete(booking._id); refreshPage(); }} color='error'>
                       <DeleteForeverIcon />
                     </IconButton>
