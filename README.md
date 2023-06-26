@@ -33,6 +33,9 @@ https://github.com/LuizFAAlthoff/CineUFSC
 
 https://cineufsc.onrender.com/
 
+# URL para a documentação do projeto:
+https://docs.google.com/document/d/1LZjM7HoQ_rwk9cXt1_U6Bbc7Cz0iMhXgDbBplnIT2Pw/edit?usp=sharing
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
