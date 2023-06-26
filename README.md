@@ -3,6 +3,8 @@ Kelvin de Lima dos Santos (21202335)
 
 Sandro Santana Ribeiro (21200424)
 
+Luiz Fernando Aguilar Althoff (21202336)
+
 # Descrição do trabalho
 
 Trabalho de desenvolvimento Web, com uma aplicação para fazer cadastro de filmes no catálogo e reserva de assentos.
