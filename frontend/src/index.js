@@ -7,7 +7,7 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import { store } from "./store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-axios.defaults.baseURL = "https://cineufsc-back.onrender.com";
+axios.defaults.baseURL = "http://localhost:5000";
 root.render(
   <React.StrictMode>
     <BrowserRouter>

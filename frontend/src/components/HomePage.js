@@ -18,7 +18,7 @@ const HomePage = () => {
           src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2023/05/boogey-1.jpg"
           alt="The Boogeyman"
           width="100%"
-          height="100%%"
+          height="100%"
         />
       </Box>
       <Box padding={5} margin="auto">
