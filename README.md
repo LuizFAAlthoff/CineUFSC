@@ -5,6 +5,8 @@ Sandro Santana Ribeiro (21200424)
 
 Luiz Fernando Aguilar Althoff (21202336)
 
+Pedro Henrique Azevedo (14201116)
+
 # Descrição do trabalho
 
 Trabalho de desenvolvimento Web, com uma aplicação para fazer cadastro de filmes no catálogo e reserva de assentos.
