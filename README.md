@@ -13,13 +13,13 @@ Trabalho de desenvolvimento Web, com uma aplicação para fazer cadastro de film
 
 # Iniciação do projeto:
 
-Vá para a pasta /backend e execute os seguintes comandos:
+Vá para a pasta src/backend e execute os seguintes comandos:
 - npm i
 - npm start
 
 Você deverá receber a seguinte mensagem: Conectado ao servidor e servidor está funcionando.
 
-Após isso vá para a pasta /frontend e execute os seguintes comandos:
+Após isso vá para a pasta src/frontend e execute os seguintes comandos:
 - npm i
 - npm start
 
