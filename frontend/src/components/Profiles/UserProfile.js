@@ -65,6 +65,9 @@ const UserProfile = () => {
             >
               Email: {user.email}
             </Typography>
+            <IconButton onClick={() => { refreshPage(); }} color='error'>
+                        <DeleteForeverIcon />
+            </IconButton>
           </Box>
         </Box>
       )}

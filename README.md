@@ -11,13 +11,13 @@ Vá para a pasta /backend e execute os seguintes comandos:
 - npm i
 - npm start
 
-Você deverá receber a seguinte mensagem: Conectado ao servidor e servidor está funcionando
+Você deverá receber a seguinte mensagem: Conectado ao servidor e servidor está funcionando.
 
 Após isso vá para a pasta /frontend e execute os seguintes comandos:
 - npm i
 - npm start
 
-Você deverá receber a seguinte mensagem: webpack compiled successfully
+Você deverá receber a seguinte mensagem: webpack compiled successfully.
 
 # Repositório
 
