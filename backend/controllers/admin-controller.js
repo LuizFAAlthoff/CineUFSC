@@ -80,7 +80,7 @@ export const getAdminById = async (req, res, next) => {
     const id = req.params.id;
     let admin;
     try {
-        admin = await Admin.findById(id).populate("addedMovies");
+        admin = await Admin.findById(id)
     } catch (err) {
         return console.log(err);
     }
